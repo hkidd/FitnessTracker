@@ -36,7 +36,6 @@ router.post("/api/workouts", (req, res) => {
 
 // route to add exercises
 router.put("/api/workouts/:id", ({ params, body }, res) => {
-  console.log("PARAMS", body, params);
 
   Workout.findOneAndUpdate(
     { _id: params.id },
@@ -51,7 +50,7 @@ router.put("/api/workouts/:id", ({ params, body }, res) => {
     });
 });
 
-// route for workouts in range?
+// route for workouts in range (last 7)
 router.get("/api/workouts/range", (req, res) => {
   Workout.aggregate([
     {
