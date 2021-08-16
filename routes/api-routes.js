@@ -16,8 +16,8 @@ router.get("/api/workouts", (req, res) => {
 });
 
 // route to create new workout
-router.post("/api/workouts", ({ body }, res) => {
-  Workout.create({})
+router.post("/api/workouts", (req, res) => {
+  Workout.create(req.body)
     .then((workoutsdb) => {
       res.json(workoutsdb);
     })
@@ -29,10 +29,40 @@ router.post("/api/workouts", ({ body }, res) => {
 // route to add exercises
 router.put("/api/workouts/:id", ({ params, body }, res) => {
   console.log("PARAMS", body, params);
+
+  Workout.findOneAndUpdate(
+    { _id: params.id },
+    { $push: { exercises: body } },
+    { new: true }
+  )
+    .then((workoutsdb) => {
+      res.json(workoutsdb);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
 });
 
 // route for workouts in range?
-router.get("/api/workouts/range", (req, res) => {});
-
+router.get("/api/workouts/range", (req, res) => {
+  Workout.aggregate([
+    {
+      $addFields: {
+        totalDuration: {
+          $sum: "$exercises.duration",
+        },
+      },
+    },
+  ])
+    .sort({ _id: -1 })
+    .limit(7)
+    .then((workoutsdb) => {
+      console.log(workoutsdb);
+      res.json(workoutsdb);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+});
 
 module.exports = router;
