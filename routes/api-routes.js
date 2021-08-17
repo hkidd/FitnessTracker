@@ -6,15 +6,15 @@ const router = require("express").Router();
 
 // route to get all workouts
 router.get("/api/workouts", (req, res) => {
-    Workout.aggregate([
-        {
-          $addFields: {
-            totalDuration: {
-              $sum: "$exercises.duration",
-            },
-          },
+  Workout.aggregate([
+    {
+      $addFields: {
+        totalDuration: {
+          $sum: "$exercises.duration",
         },
-      ])
+      },
+    },
+  ])
     .then((workoutsdb) => {
       res.json(workoutsdb);
     })
@@ -36,7 +36,6 @@ router.post("/api/workouts", (req, res) => {
 
 // route to add exercises
 router.put("/api/workouts/:id", ({ params, body }, res) => {
-
   Workout.findOneAndUpdate(
     { _id: params.id },
     { $push: { exercises: body } },
