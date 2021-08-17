@@ -2,7 +2,7 @@
 Creating a Mongo db with a Mongoose schema that will handle routes with Express.
 
 ## Deployed Link
-This Fitness Tracker web app can be found deployed on heroku here: https://fitness-tracker-hk.herokuapp.com/?id=611b13784c4d990016a97c7f
+This Fitness Tracker web app can be found deployed on heroku here: https://fitness-tracker-hk.herokuapp.com/
 
 ## User Story
 
