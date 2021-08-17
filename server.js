@@ -22,7 +22,7 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workoutsdb", {
 
 app.use(require("./routes/api-routes.js"));
 
-// Front end routes
+// Front end routes to display the three html pages
 app.get("/", function (req, res) {
   res.sendFile(path.join(__dirname, "./public/index.html"));
 });

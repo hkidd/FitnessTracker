@@ -4,7 +4,7 @@ const path = require("path");
 const express = require("express");
 const router = require("express").Router();
 
-// route to get all workouts
+// route to get all workouts, along with aggregating the total exercise duration
 router.get("/api/workouts", (req, res) => {
   Workout.aggregate([
     {
@@ -23,7 +23,7 @@ router.get("/api/workouts", (req, res) => {
     });
 });
 
-// route to create new workout
+// route to create new workout using request body
 router.post("/api/workouts", (req, res) => {
   Workout.create(req.body)
     .then((workoutsdb) => {
@@ -34,7 +34,7 @@ router.post("/api/workouts", (req, res) => {
     });
 });
 
-// route to add exercises
+// route to add exercises to a workout based on its id
 router.put("/api/workouts/:id", ({ params, body }, res) => {
   Workout.findOneAndUpdate(
     { _id: params.id },
@@ -49,7 +49,7 @@ router.put("/api/workouts/:id", ({ params, body }, res) => {
     });
 });
 
-// route for workouts in range (last 7 days)
+// route for workouts in range (last 7 days), along with the aggregate exercise duration
 router.get("/api/workouts/range", (req, res) => {
   Workout.aggregate([
     {

@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const WorkoutSchema = new Schema({
+  // Each workout has a date attached and can include any of the exercise properties listed below
   day: {
     type: Date,
     default: new Date(new Date().setDate(new Date().getDate())),
