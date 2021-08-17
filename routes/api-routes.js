@@ -50,7 +50,7 @@ router.put("/api/workouts/:id", ({ params, body }, res) => {
     });
 });
 
-// route for workouts in range (last 7)
+// route for workouts in range (last 7 days)
 router.get("/api/workouts/range", (req, res) => {
   Workout.aggregate([
     {
